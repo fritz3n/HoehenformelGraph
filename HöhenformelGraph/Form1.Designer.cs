@@ -30,7 +30,10 @@
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.CalcButt = new System.Windows.Forms.Button();
+            this.ZeroTempNum = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ZeroPressureNum = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.DensityNum = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.EndNum = new System.Windows.Forms.NumericUpDown();
@@ -42,6 +45,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ZeroTempNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ZeroPressureNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DensityNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EndNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartNum)).BeginInit();
@@ -49,11 +54,11 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox.BackColor = System.Drawing.Color.Red;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(789, 505);
+            this.pictureBox.Size = new System.Drawing.Size(789, 523);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseEnter += new System.EventHandler(this.pictureBox_MouseEnter);
@@ -74,7 +79,10 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.CalcButt);
+            this.splitContainer1.Panel2.Controls.Add(this.ZeroTempNum);
+            this.splitContainer1.Panel2.Controls.Add(this.label5);
+            this.splitContainer1.Panel2.Controls.Add(this.ZeroPressureNum);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.DensityNum);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.EndNum);
@@ -82,18 +90,69 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.StartNum);
             this.splitContainer1.Size = new System.Drawing.Size(789, 580);
-            this.splitContainer1.SplitterDistance = 505;
+            this.splitContainer1.SplitterDistance = 523;
             this.splitContainer1.TabIndex = 1;
             // 
-            // CalcButt
+            // ZeroTempNum
             // 
-            this.CalcButt.Location = new System.Drawing.Point(557, 11);
-            this.CalcButt.Name = "CalcButt";
-            this.CalcButt.Size = new System.Drawing.Size(75, 23);
-            this.CalcButt.TabIndex = 7;
-            this.CalcButt.Text = "Calculate";
-            this.CalcButt.UseVisualStyleBackColor = true;
-            this.CalcButt.Click += new System.EventHandler(this.CalcButt_Click);
+            this.ZeroTempNum.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.ZeroTempNum.Location = new System.Drawing.Point(741, 14);
+            this.ZeroTempNum.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.ZeroTempNum.Name = "ZeroTempNum";
+            this.ZeroTempNum.Size = new System.Drawing.Size(38, 20);
+            this.ZeroTempNum.TabIndex = 11;
+            this.ZeroTempNum.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.ZeroTempNum.ValueChanged += new System.EventHandler(this.ZeroTempNum_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(662, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Zero Temp °C";
+            // 
+            // ZeroPressureNum
+            // 
+            this.ZeroPressureNum.DecimalPlaces = 2;
+            this.ZeroPressureNum.Location = new System.Drawing.Point(597, 14);
+            this.ZeroPressureNum.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.ZeroPressureNum.Name = "ZeroPressureNum";
+            this.ZeroPressureNum.Size = new System.Drawing.Size(59, 20);
+            this.ZeroPressureNum.TabIndex = 9;
+            this.ZeroPressureNum.Value = new decimal(new int[] {
+            101325,
+            0,
+            0,
+            131072});
+            this.ZeroPressureNum.ValueChanged += new System.EventHandler(this.ZeroPressureNum_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(496, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Zero Pressure hPa";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // DensityNum
             // 
@@ -102,7 +161,7 @@
             0,
             0,
             0});
-            this.DensityNum.Location = new System.Drawing.Point(403, 14);
+            this.DensityNum.Location = new System.Drawing.Point(370, 14);
             this.DensityNum.Maximum = new decimal(new int[] {
             1410065408,
             2,
@@ -121,7 +180,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(355, 16);
+            this.label3.Location = new System.Drawing.Point(322, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 5;
@@ -134,7 +193,7 @@
             0,
             0,
             0});
-            this.EndNum.Location = new System.Drawing.Point(216, 14);
+            this.EndNum.Location = new System.Drawing.Point(196, 14);
             this.EndNum.Maximum = new decimal(new int[] {
             1410065408,
             2,
@@ -153,7 +212,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(184, 16);
+            this.label1.Location = new System.Drawing.Point(164, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 3;
@@ -162,7 +221,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 16);
+            this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 2;
@@ -175,7 +234,7 @@
             0,
             0,
             0});
-            this.StartNum.Location = new System.Drawing.Point(48, 14);
+            this.StartNum.Location = new System.Drawing.Point(38, 14);
             this.StartNum.Maximum = new decimal(new int[] {
             1410065408,
             2,
@@ -200,6 +259,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ZeroTempNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ZeroPressureNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DensityNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EndNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartNum)).EndInit();
@@ -211,13 +272,16 @@
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button CalcButt;
         private System.Windows.Forms.NumericUpDown DensityNum;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown EndNum;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown StartNum;
+        private System.Windows.Forms.NumericUpDown ZeroPressureNum;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown ZeroTempNum;
+        private System.Windows.Forms.Label label5;
     }
 }
 

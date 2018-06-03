@@ -218,7 +218,7 @@ namespace HöhenformelGraph
                         g.DrawLine(blue, point, bottom);
 
                         string hText = Math.Round(area.Map(index), 2).ToString() + " m"; // Höhen text berechnen
-                        string pText = Math.Round(pressure, 2).ToString() + " kpa"; // Druck Text berechnen
+                        string pText = Math.Round(pressure, 2).ToString() + " hPa"; // Druck Text berechnen
 
                         int textWidth = (int)Math.Max(g.MeasureString(hText, font).Width, g.MeasureString(pText, font).Width); // welcher der TExte ist breiter
                         bool drawRight = textWidth >= mX; // ist der Text breiter als mX? wenn ja muss rechts von der Maus gezeichnet werden
