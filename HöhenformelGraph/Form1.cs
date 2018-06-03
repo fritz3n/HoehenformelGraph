@@ -59,5 +59,21 @@ namespace HöhenformelGraph
             if(ready)
                 graph.Update();
         }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            graph.MousePoint = e.Location;
+            graph.Draw();
+        }
+
+        private void pictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            graph.MouseActive = true;
+        }
+
+        private void pictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            graph.MouseActive = false;
+        }
     }
 }

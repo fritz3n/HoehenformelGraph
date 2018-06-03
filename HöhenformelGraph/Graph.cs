@@ -15,6 +15,9 @@ namespace HöhenformelGraph
         private IDataset _dataset;
         public IDataset Dataset { get { return _dataset;  } set { _dataset = value;  } } // Multitasking zeugs
 
+        public bool MouseActive = false;
+        public Point MousePoint = new Point(0, 0);
+
         public Graph(PictureBox box, IDataset dataset)
         {
             this.box = box;
@@ -179,21 +182,61 @@ namespace HöhenformelGraph
 
                 Point cur; // temporäre Variable für den Punkt, an dem zu zeichnen ist
 
-                Point last = new Point((int) xLGap, height - (int)Math.Max(data[0] * vScale + yTGap + 18, 1)); // ersten Punkt berechnen
+                Point last = new Point((int) xLGap, height - (int)Math.Max(data[0] * vScale + yBGap, 1)); // ersten Punkt berechnen
 
                 for (int i = 0; i < data.Length; i++)
                 {
-                    cur = new Point((int)(i * hScale + xLGap), height - (int)Math.Max(data[i] * vScale + yTGap + 18, 1)); // jetzigen Punkt berechnen
+                    cur = new Point((int)(i * hScale + xLGap), height - (int)Math.Max(data[i] * vScale + yBGap, 1)); // jetzigen Punkt berechnen
                     
                     g.DrawLine(r, last, cur); // Linie zeichnen
 
                     last = cur;
                     
                 }
+
+                if (MouseActive) // ist die Maus im Graphen?
+                {
+                    if(MousePoint.X >= xLGap & MousePoint.X <= width - xRGap &
+                        MousePoint.Y >= yTGap & MousePoint.Y <= height - yBGap) // ist sie inneerhalb der Graph begrenzungen?
+                    {
+                        Pen blue = new Pen(Color.Blue); // Blauen Pen und Brush erstellen
+                        Brush blueBrush = new SolidBrush(Color.Blue);
+
+                        int mX = (int)(MousePoint.X - xLGap); // relative MausKoordinaten bestimmen
+                        int mY = (int)(MousePoint.Y - yTGap);
+
+                        int index = (int)Math.Min(Math.Round(mX / hScale), data.Length - 1); // index des Druckes im data Array berechnen
+                        double pressure = data[index]; // Druck aus dem data Array holen
+
+                        int pY = height - (int)Math.Round(pressure * vScale + yBGap); // Y-Position mit Druck bestimmen
+
+                        Point left = new Point((int)xLGap, pY); // punkt an xLGap berechnen
+                        Point point = new Point(mX + (int)xLGap, pY); // punkt an roter Linie berechnen
+                        Point bottom = new Point(mX + (int)xLGap, height - (int)yBGap); // punkt an yBGap berechnen
+
+                        g.DrawLine(blue, left, point); // Linien zeichnen
+                        g.DrawLine(blue, point, bottom);
+
+                        string hText = Math.Round(area.Map(index), 2).ToString() + " m"; // Höhen text berechnen
+                        string pText = Math.Round(pressure, 2).ToString() + " kpa"; // Druck Text berechnen
+
+                        int textWidth = (int)Math.Max(g.MeasureString(hText, font).Width, g.MeasureString(pText, font).Width); // welcher der TExte ist breiter
+                        bool drawRight = textWidth >= mX; // ist der Text breiter als mX? wenn ja muss rechts von der Maus gezeichnet werden
+
+                        StringFormat leftFormat = new StringFormat()
+                        {
+                            Alignment = (drawRight ? StringAlignment.Near : StringAlignment.Far) // Rechts zeichnen wenn drawRight == true, andernfalls Links
+                        }; 
+
+                        g.DrawString(hText, font, blueBrush, (float)(mX + xLGap - 1), pY + 8, leftFormat); // Text zeichnen
+                        g.DrawString(pText, font, blueBrush, (float)(mX + xLGap - 1), pY + 24, leftFormat);
+                    }
+                }
             }
 
             //bmp.Save(@"C:\Users\fritzen\Desktop\bmp.png");
             //Console.WriteLine("test");
+            box.Image?.Dispose();
 
             box.Image = bmp; // Bild der Picturebox zu dem gerade erstellten Bild setzten
         }
