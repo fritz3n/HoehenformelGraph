@@ -141,7 +141,7 @@ namespace HöhenformelGraph
 
                 double relX = 0; // relative X-Position im kommendem while-loop
 
-                int xNum = (int)Math.Floor(xRange / (xLGap + 10)); // nummer an X-Achsen Bschriftungen berechnen
+                int xNum = (int)Math.Floor(xRange / ((xRGap-5) * 2 + 10)); // nummer an X-Achsen Bschriftungen berechnen
                 double xStep = (xRange) / xNum; // Distanz zwischen Beschriftungen
                 num = 0;
 
@@ -149,12 +149,11 @@ namespace HöhenformelGraph
                 {
                     num++;
                     float curX = (float)(relX + xLGap); // x-Position berechnen
-                    int val = (int)Math.Round(area.Map(relX / hScale)); // zu zeichnende Zahl berechnen
+                    float curY = (float)(height - 21); // y-Position berechnen
 
+                    int val = (int)Math.Round(area.Map(relX / hScale)); // zu zeichnende Zahl berechnen
                     string text = val.ToString();
 
-                    float curY = (float)(height - 21); // y-Position berechnen
-                    
                     g.DrawString(text, font, bBrush, curX, curY, format); // Text zeichnen
 
                     g.DrawLine(b,
