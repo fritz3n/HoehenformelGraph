@@ -12,7 +12,7 @@ namespace HöhenformelGraph
 {
     public partial class Form1 : Form
     {
-        Höhenformel hFormel = new Höhenformel(new LinearTempProvider());
+        Höhenformel hFormel = new Höhenformel(new LinearTempProvider(273.15 + 20));
 
         Graph graph;
         bool ready = false;
@@ -60,12 +60,13 @@ namespace HöhenformelGraph
 
         private void ZeroTempNum_ValueChanged(object sender, EventArgs e)
         {
-            hFormel.Temp.ZeroTemp = (double)ZeroTempNum.Value;
+            hFormel.Temp.ZeroTemp = (double)ZeroTempNum.Value + 273.15;
+            graph.Update();
         }
 
         private void splitContainer1_Panel1_Resize(object sender, EventArgs e)
         {
-            if(ready)
+            if (ready)
                 graph.Draw();
         }
 
@@ -89,5 +90,6 @@ namespace HöhenformelGraph
         {
 
         }
-        
+
     }
+}

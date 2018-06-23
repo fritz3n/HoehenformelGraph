@@ -161,7 +161,7 @@ namespace HöhenformelGraph
 
         public double GetTemp(int Height)
         {
-            return ZeroTemp + 0.00979 * Height;
+            return ZeroTemp - 0.00979 * Height;
         }
     }
 
